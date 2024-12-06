@@ -6,6 +6,17 @@ type binaryChunk struct {
 	mainFunc     *Prototype // 主函数原型
 }
 
+type UpValue struct {
+	InStack byte
+	Idx     byte
+}
+
+type LocVar struct {
+	VarName string
+	StartPC uint32
+	EndPC   uint32
+}
+
 const (
 	LUA_SIGNATURE    = "\x1bLua"
 	LUAC_VERSION     = 0x53
