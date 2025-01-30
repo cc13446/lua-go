@@ -79,12 +79,12 @@ func (r *reader) checkHeader() {
 	}
 }
 
-func (r *reader) readProto(parentSource string) *Prototype {
+func (r *reader) readProto(parentSource string) *ProtoType {
 	source := r.readString()
 	if source == "" {
 		source = parentSource
 	}
-	return &Prototype{
+	return &ProtoType{
 		Source:          source,
 		LineDefined:     r.readUint32(),
 		LastLineDefined: r.readUint32(),
@@ -147,8 +147,8 @@ func (r *reader) readUpValues() []UpValue {
 	return upValues
 }
 
-func (r *reader) readProtoTypes(parentSource string) []*Prototype {
-	protoTypes := make([]*Prototype, r.readUint32())
+func (r *reader) readProtoTypes(parentSource string) []*ProtoType {
+	protoTypes := make([]*ProtoType, r.readUint32())
 	for i := range protoTypes {
 		protoTypes[i] = r.readProto(parentSource)
 	}

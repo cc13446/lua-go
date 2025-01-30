@@ -1,9 +1,9 @@
 package chunk
 
-type binaryChunk struct {
+type BinaryChunk struct {
 	header                  // 头部
 	sizeUpValues byte       // 主函数upValue数量
-	mainFunc     *Prototype // 主函数原型
+	mainFunc     *ProtoType // 主函数原型
 }
 
 type UpValue struct {
@@ -54,7 +54,7 @@ const (
 	TAG_LONG_STR  = 0x14
 )
 
-type Prototype struct {
+type ProtoType struct {
 	Source          string // 源文件名字 以 @ 开头则为 Lua 源文件编译来的，以 = 开头则为标准输入编译来的
 	LineDefined     uint32 // 起止行号
 	LastLineDefined uint32
@@ -64,13 +64,13 @@ type Prototype struct {
 	Code            []uint32      // 指令表
 	Constants       []interface{} // 常量表
 	UpValues        []UpValue     // up value 表
-	ProtoTypes      []*Prototype  // 子函数原型
+	ProtoTypes      []*ProtoType  // 子函数原型
 	LineInfo        []uint32      // 行号表
 	LocVars         []LocVar      // 局部变量表
 	UpValueNames    []string      // up value 名称表格
 }
 
-func UnDump(data []byte) *Prototype {
+func UnDump(data []byte) *ProtoType {
 	reader := &reader{data}
 	reader.checkHeader()        // 校验头部
 	reader.readByte()           // 跳过UpValue数量
